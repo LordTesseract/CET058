@@ -29,14 +29,14 @@ Um [compilador](https://pt.wikipedia.org/wiki/Compilador) é um programa de comp
 
     Por demanda, a o parser deveria conter as seguintes propostas:
     
-    *declaração de variáveis
-    *atribuição
-    *expressões aritméticas básicas
-    *expressões relacionais e lógicas
-    *contenha uma estrutura de seleção (ex, if...else)
-    *contenha uma estrutura de repetição (ex, for)
-    *vetores
-    *Criar a tabela de símbolos
+    * declaração de variáveis
+    * atribuição
+    * expressões aritméticas básicas
+    * expressões relacionais e lógicas
+    * contenha uma estrutura de seleção (ex, if...else)
+    * contenha uma estrutura de repetição (ex, for)
+    * vetores
+    * Criar a tabela de símbolos
 
     nos quais todas foram implementadas, excetuando os vetores. 
     Entretanto, a cada nova funcionalidade, várias partes do código tinham que ser mexidas, e talvez pela inexperiência ou pela falta de prática (e um pouco de excesso de outros trabalhos) não foi possivel terminar a solução satisfatóriamente no tempo hábil.
