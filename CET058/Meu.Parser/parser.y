@@ -309,7 +309,7 @@ exp: fator
 
                             for(int i = 0; i < prox_posicao_livre; i++){
                                 if(!strcmp($2, tabela_de_simbolos[i].lexema)){
-                                    printf("Variavel ja declarada! %s", $2);
+                                    printf("Atencao: Variavel ja declarada! %s", $2);
                                     return;
                                 }
                             }
@@ -329,6 +329,13 @@ exp: fator
                             filhos[0] = $1;
                             filhos[1] = novo_no("=", NULL, 0);
                             filhos[2] = $3;
+
+			    			for(int i = 0; i < prox_posicao_livre; i++){
+                                if(!strcmp($2, tabela_de_simbolos[i].lexema)){
+                                    printf("Atencao: Variavel ja declarada! %s", $2);
+                                    return;
+                                }
+                            }
 
                             $$ = novo_no("exp", filhos, 3);
     }
@@ -369,54 +376,51 @@ exp: fator
                                 prox_mem_livre += 4;
                                 break;
                             }
-                            if(strcmp($1, "int") == -3){
-                                prox_mem_livre += 32;
+                            if(strcmp($1, "float") == -3){
+                                prox_mem_livre += 8;
                                 break;
                             }
-                            if(strcmp($1, "int") == -5){
-                                prox_mem_livre += 64;
+                            if(strcmp($1, "char") == -5){
+                                prox_mem_livre += 1;
                                 break;
                             }
-                            if(strcmp($1, "int") == -6){
-                                prox_mem_livre += 4;
-                                break;
-                            }
+                            
                             
 
                             $$ = novo_no("exp", filhos, 2);  
     }
-    |tipo abrir exp fechar exp {
+    |tipo fator abrir fator fechar {
                             No** filhos = (No**) malloc(sizeof(No*)*3);
                             filhos[0] = $1;
                             filhos[1] = $3;
                             filhos[2] = $5;
 
                             for(int i = 0; i < prox_posicao_livre; i++){
-                                if(!strcmp($5, tabela_de_simbolos[i].lexema)){
+                                if(!strcmp($2, tabela_de_simbolos[i].lexema)){
                                     printf("Variavel ja declarada! %s", $5);
                                     return;
                                 }
                             }
                             RegistroTS registro;
                             strncpy(registro.token, "ID", 50);
-                            strncpy(registro.lexema, $5, 50);
+                            strncpy(registro.lexema, $2, 50);
                             strncpy(registro.tipo, $1, 50);
                             registro.endereco = prox_mem_livre;
                             inserir_na_tabela_de_simbolos(registro);
                             if(strcmp($1, "int") == 0){
-                                prox_mem_livre += (4 * atoi($3));
+                                prox_mem_livre += (4 * atoi($4));
                                 break;
                             }
-                            if(strcmp($1, "int") == -3){
-                                prox_mem_livre += (32 * atoi($3));
+                            if(strcmp($1, "float") == -3){
+                                prox_mem_livre += (32 * atoi($4));
                                 break;
                             }
-                            if(strcmp($1, "int") == -5){
-                                prox_mem_livre += (64 * atoi($3));
+                            if(strcmp($1, "char") == -5){
+                                prox_mem_livre += (1 * atoi($4));
                                 break;
                             }
-                            if(strcmp($1, "int") == -6){
-                                prox_mem_livre += (4 * atoi($3));
+                            if(strcmp($1, "char") == -6){
+                                prox_mem_livre += (1 * atoi($4));
                                 break;
                             }
 
